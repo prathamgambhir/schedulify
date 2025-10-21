@@ -28,10 +28,10 @@ export default function CreateEventDialog() {
   }, [searchParams]);
 
   const handleClose = () => {
-    setIsOpen(false);
     if(searchParams.get("create") === "true"){
       router.replace(window.location.pathname);
     }
+    setIsOpen(false);
     router.refresh()
   };
 
