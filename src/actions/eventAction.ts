@@ -5,7 +5,6 @@ import { EventFormType } from "@/components/eventForm";
 import prisma from "@/lib/prisma";
 import { eventSchema } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
-import { success } from "zod";
 
 export const createEventAction = async (formdata: EventFormType) => {
     const validateData = eventSchema.parse(formdata)
