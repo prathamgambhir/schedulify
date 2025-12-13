@@ -1,5 +1,6 @@
 import { signin, signinWithGoogle } from "@/actions/authAction";
 import { auth } from "@/auth";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,9 +17,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
-  const session = await auth()
-  if(session?.user){
-    redirect("/")
+  const session = await auth();
+  if (session?.user) {
+    redirect("/");
   }
 
   return (
@@ -55,7 +56,10 @@ export default async function LoginPage() {
               </div>
             </div>
             <div className="flex-col items-center justify-center gap-2 mt-6">
-              <Button type="submit" className="w-[50%] p-[20px] ml-[25%] font-semibold text-sm cursor-pointer">
+              <Button
+                type="submit"
+                className="w-[50%] p-[20px] ml-[25%] font-semibold text-sm cursor-pointer"
+              >
                 Login
               </Button>
               <span className="text-sm text-muted-foreground flex items-center justify-center mt-4 mb-4 font-bold text-lg ">
@@ -63,9 +67,17 @@ export default async function LoginPage() {
               </span>
             </div>
           </form>
-          <form action={signinWithGoogle} className="flex justify-center items-center">
+          <form
+            action={signinWithGoogle}
+            className="flex justify-center items-center"
+          >
             <Button type="submit" className="w-[60%] p-[20px] cursor-pointer">
-              {/* add google logo */}
+              <Avatar className="h-5 w-5 mr-1">
+                <AvatarImage
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA2FBMVEVHcEwHsYsZld0OvF8yhv4KuHATrJdNgtH/hiv+0Av/SEspv0T+Sj++qgwyhf3/UGb+TD3/iR1WwxV8xgD+RkH+RUD/zgn/S1H/R0P/zwn/tQoekuMcm8j/SUv1zAJGwiY0hv3mygCyyQEUvFklvkYCqKz/qBD/YDL/jRwxhv//aC0FrZgDo7yBxgClyAH+RkEzhfwNvF//zgT/0g88gvVFf+z/UWoBqKoKn8f/WjQKt3T/S1P/cSj7xQMnjPBAwSxRfOH/nxOYxwFlxQbFygEYvVRVet3dygGPQSe/AAAAL3RSTlMA+/2iYWUYDROclv79Bie5r/j4+GNyOz7RW/6jXFjIuuE2/s073LHByorr3YfIsuWqn+wAAAEUSURBVCiRrdDZVsIwEAbgiHahtFoQBOQcAfed0DaFSjcU4f3fyEmTNClUr/yvknxnkpkg9A8xu5brWl2zhvqDGc+gv2+uLWwVhmcVcp6jyJ7Z3MLQUrEdx5FdFlYr79ftGEp70IvZs1cVmyaXoA9iW7kTXXmgj7/M50ESpx6Hvu95TbY2ZNhB04dcsDUheb7d5jkhgSGRf1pAWIIAnx4gDlgwLhEa4tdiGYZD2i1v6KTIhGI5SrLbqKNQm4hP2G2uP9+kjdIU4ye+mYKdf42FvS4bjTTVxfYdrJO1NDgwtJfFEnQkLyrse07zcbSgqnTgdLKsNedIVUdqxrywKL0z9r7/9qZEDR1G144hml5D8v2/UMkPwUwyMLiq0boAAAAASUVORK5CYII="
+                  alt="@google-logo"
+                />
+              </Avatar>
               Login with Google
             </Button>
           </form>

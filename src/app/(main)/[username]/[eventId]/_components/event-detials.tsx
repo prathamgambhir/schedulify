@@ -10,7 +10,7 @@ import {
 import { CalendarClock, Clock, Clock3, ClockAlertIcon } from "lucide-react";
 import Image from "next/image";
 
-interface EventDetailsProps {
+export interface EventDetailsProps {
   event:
     | ({
         user: {

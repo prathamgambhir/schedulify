@@ -53,7 +53,10 @@ const AvailabilityForm: React.FC<availabilityFormType> = ({ initialData }) => {
           {weekdays.map((day) => {
             const isAvailable = watch(`${day}.isAvailable`);
             return (
-              <div key={day} className="grid grid-cols-16 pb-4 text-md font-medium items-center">
+              <div
+                key={day}
+                className="grid grid-cols-16 pb-4 text-md font-medium items-center"
+              >
                 <Controller
                   name={`${day}.isAvailable`}
                   control={control}
@@ -93,7 +96,9 @@ const AvailabilityForm: React.FC<availabilityFormType> = ({ initialData }) => {
                         </SelectTrigger>
                         <SelectContent>
                           {timeSlots.map((slot) => (
-                            <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                            <SelectItem key={slot} value={slot}>
+                              {slot}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -118,7 +123,9 @@ const AvailabilityForm: React.FC<availabilityFormType> = ({ initialData }) => {
                         </SelectTrigger>
                         <SelectContent>
                           {timeSlots.map((slot) => (
-                            <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                            <SelectItem key={slot} value={slot}>
+                              {slot}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>

@@ -69,7 +69,7 @@ export const availabilitySchema = z.object({
 export const bookingSchema = z.object({
   name: z.string().min(1,"Name is required"),
   email: z.email("Invalid email"),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+  date: z.union([z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"), z.date()]),
   time: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
   additionalInfo : z.string().max(50,"character limit exceeded").optional()
 })

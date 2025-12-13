@@ -207,14 +207,14 @@ export const getEventAvailability = async (eventId: string) => {
   return availableDatesandSlots;
 };
 
-export const getEventAvailabilitySlots = (
+export const getEventAvailabilitySlots = async (
   startTime: Date, //day availability start time
   endTime: Date, // day availablility end time
   duration: number,
   timeGap: number,
   bookings: Booking[],
   formatedDate: string
-): string[] => {
+): Promise<string[]> => {
   const slots: string[] = [];
 
   let slotStartTime = parseISO( 

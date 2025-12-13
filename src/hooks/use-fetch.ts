@@ -21,6 +21,7 @@ export default function useFetch<TData = any, TArgs extends any[] = any[]>(
       // console.log(response);
     } catch (error: any) {
       setError(error);
+      throw new Error(error);
     } finally {
       setLoading(false);
     }
