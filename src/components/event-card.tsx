@@ -10,11 +10,12 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Link, Trash } from "lucide-react";
+import { Trash, Link2 } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { deleteEvent } from "@/actions/eventAction";
 import { useRouter } from "next/navigation";
 import { Spinner } from "./ui/spinner";
+import Link from "next/link";
 
 interface EventCard {
   event: {
@@ -27,9 +28,9 @@ interface EventCard {
     duration: number;
     isPrivate: boolean;
     id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    userId: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    userId?: string;
   };
   username: string;
   isPublicPage?: boolean;
@@ -57,7 +58,9 @@ const EventCard: React.FC<EventCard> = ({
 
   const { fn: fnDeleteEvent, loading } = useFetch(deleteEvent);
   const handleDelete = async () => {
-    if (window.confirm(`Sure you want to delete the Event : "${event.title}"`)) {
+    if (
+      window.confirm(`Sure you want to delete the Event : "${event.title}"`)
+    ) {
       await fnDeleteEvent(event.id);
       router.refresh();
     }
@@ -67,9 +70,18 @@ const EventCard: React.FC<EventCard> = ({
     <div>
       <Card className="w-full h-64">
         <CardHeader>
-          <CardTitle>{event.title}</CardTitle>
+          <CardTitle>
+            <Link
+              href={`${window?.location.origin}/${username}/${event.id}`}
+              target="_blank"
+            >
+              {event.title}
+            </Link>
+          </CardTitle>
           <CardDescription className="flex justify-between">
-            <span>{`${event.duration} mins | ${event.isPrivate}`}</span>
+            <span>{`${event.duration} mins | ${
+              event.isPrivate ? "Private" : "Public"
+            }`}</span>
             <span>{event._count.bookings} Bookings</span>
           </CardDescription>
         </CardHeader>
@@ -84,7 +96,7 @@ const EventCard: React.FC<EventCard> = ({
                 className={isCopied ? "" : "bg-blue-500 text-white"}
                 onClick={handleCopy}
               >
-                <Link />
+                <Link2 />
                 {isCopied ? "Copied" : "Copy Link"}
               </Button>
               <Button variant={"destructive"} onClick={handleDelete}>

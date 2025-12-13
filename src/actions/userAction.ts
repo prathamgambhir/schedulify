@@ -30,3 +30,35 @@ export const updateUsername = async (username: string) => {
 
   return { success: true };
 };
+
+export const getUserByUsername = async (username: string) => {
+  const user = await prisma.user.findUnique({
+    where: {username: username},
+    select: {
+      id: true, 
+      name: true,
+      email: true,
+      image: true,
+      events: {
+        where: {
+          isPrivate: false
+        },
+        orderBy: {
+          createdAt: "desc"
+        },
+        select: {
+          id: true,
+          duration: true,
+          title: true,
+          description: true,
+          isPrivate: true,
+          _count: {
+            select: {bookings: true}
+          }
+        }
+      }
+    }
+  })
+
+  return user;
+}

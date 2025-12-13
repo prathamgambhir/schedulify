@@ -42,6 +42,7 @@ export const signup = async (formdata: FormData) => {
       },
     });
 
+    //ToDo : fix followup signin
     await signIn("credentials", {
       email,
       password,

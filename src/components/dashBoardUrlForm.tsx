@@ -46,17 +46,32 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
     loading,
   } = useFetch(updateUsername);
 
-  const { update } = useSession();
+  const { data:session, update } = useSession();
   const router = useRouter();
   const submitForm = async (sendData: { username: string }) => {
-    await fnUpdateUsername(sendData.username);
-    if (data?.success) {
-      await update({
-        user: {
-          username: sendData,
-        },
-      });
-      router.refresh();
+    const res = await fnUpdateUsername(sendData.username);
+    // console.log(res?.success)
+    if (res?.success) {
+      try {
+        await update({username: sendData.username});
+        console.log("again called sessioonnn")
+        router.refresh();
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+  };
+
+  const[isCopied, setIsCopied] = useState<boolean>(false)
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/${defaultUsername}`
+      );
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 3000);
+    } catch (error) {
+      throw new Error("unable to copy url");
     }
   };
 
@@ -90,7 +105,7 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
             <>Update Username</>
           )}
         </Button>
-        <Button variant={"outline"}>Copy Link</Button>
+        <Button type="button" variant={"outline"} onClick={handleCopy}>{isCopied ? "Copied" : "Copy Link"}</Button>
       </div>
     </form>
   );

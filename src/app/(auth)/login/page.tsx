@@ -65,7 +65,8 @@ export default async function LoginPage() {
           </form>
           <form action={signinWithGoogle} className="flex justify-center items-center">
             <Button type="submit" className="w-[60%] p-[20px] cursor-pointer">
-              <Loader className="size-md"/>Login with Google
+              {/* add google logo */}
+              Login with Google
             </Button>
           </form>
         </CardContent>

@@ -5,7 +5,7 @@ import { defaultAvailability } from './data'
 
 async function Availability () {
   const gotUserAvailability = await getAvailabilityData() as availabilityDataType;
-  console.log(gotUserAvailability);
+  // console.log(gotUserAvailability);
 
   return (
     <div className='px-5 mt-5 '>

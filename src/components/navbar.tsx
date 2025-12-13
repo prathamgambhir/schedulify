@@ -25,7 +25,7 @@ const Navbar = () => {
     pathname === "/" || pathname == "/login" || pathname == "/signup";
 
   return (
-    <header className="w-full flex justify-center items-center sticky top-8 lg:mb-12 z-50">
+    <header className="w-full flex justify-center items-center sticky top-8 lg:mb-14 z-50">
       <div className="w-full sticky h-18 top-2 bg-white/80 backdrop-blur-sm shadow-md border border-black/15 shadow-black/10 rounded-xl flex px-4 py-2 justify-between items-center">
         <Link href={"/"}>
           <Image
