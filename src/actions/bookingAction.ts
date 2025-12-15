@@ -51,6 +51,7 @@ export const createBooking = async (bookingData: CreateBookingPayload) => {
     const meetGenerateResponse = await calender.events.insert({
       calendarId: "primary",
       conferenceDataVersion: 1,
+      sendNotifications: true,
       requestBody: {
         summary: `${bookingData.name}-${event.title}`,
         description: bookingData.additionalInfo,
