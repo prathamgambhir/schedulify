@@ -1,5 +1,6 @@
 import { getUserMeetings } from "@/actions/meetingsAction";
 import MeetList from "@/components/meet-list";
+import { Spinner } from "@/components/ui/spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { Suspense } from "react";
 
@@ -12,12 +13,12 @@ const Meeting = async () => {
           <TabsTrigger value="past">Past</TabsTrigger>
         </TabsList>
         <TabsContent value="upcoming">
-          <Suspense fallback="Loading upcoming meets...." >
+          <Suspense fallback={<p className="my-4 mx-2 text-sm font-bold flex items-center gap-2"><Spinner/> Loading upcoming meetings ...</p>}>
             <UpcomingMeets />
           </Suspense>
         </TabsContent>
         <TabsContent value="past">
-          <Suspense fallback="Loading past meets.....">
+          <Suspense fallback={<p className="my-4 mx-2 text-sm font-bold flex items-center gap-2"><Spinner/> Loading past meetings ...</p>}>
             <PastMeets />
           </Suspense>
         </TabsContent>
@@ -26,24 +27,24 @@ const Meeting = async () => {
   );
 };
 
-const UpcomingMeets = async() => {
+const UpcomingMeets = async () => {
   const meetings = await getUserMeetings("upcoming");
 
-  return(
+  return (
     <>
-      <MeetList meetings={meetings} type="upcoming"/>
+      <MeetList meetings={meetings} type="upcoming" />
     </>
-  )
-}
+  );
+};
 
-const PastMeets = async() => {
+const PastMeets = async () => {
   const meetings = await getUserMeetings("past");
 
-  return(
+  return (
     <>
-      <MeetList meetings={meetings} type="past"/>
+      <MeetList meetings={meetings} type="past" />
     </>
-  )
-}
+  );
+};
 
 export default Meeting;

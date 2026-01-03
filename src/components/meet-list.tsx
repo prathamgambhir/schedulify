@@ -53,7 +53,7 @@ type meetListProps = {
   type: "upcoming" | "past";
 };
 
-const MeetList: React.FC<meetListProps> = async ({ meetings, type }) => {
+const MeetList: React.FC<meetListProps> = ({ meetings, type }) => {
   if (meetings.length === 0) {
     return (
       <p className="text-xl font-semibold my-5 mx-1">

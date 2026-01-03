@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { SessionProvider } from "next-auth/react";
 import { Suspense } from "react";
+import Footer from "@/components/ui/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
           <Suspense>
-            <main className="min-h-screen bg-gradient-to-b from-blue-200 to blue-100 pl-20 pr-20">
+            <main
+              className="min-h-screen pl-20 pr-20"
+            >
               <Navbar />
               {children}
             </main>
+            <Footer />
           </Suspense>
         </SessionProvider>
       </body>
