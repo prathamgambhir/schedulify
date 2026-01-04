@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function FinalCta() {
+  const router = useRouter();
   return (
     <section className="px-6 py-44 pb-24">
       <div className="max-w-4xl mx-auto bg-blue-600 rounded-[3.5rem] p-12 lg:p-24 text-center text-white relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(37,99,235,0.4)]">
@@ -11,6 +13,7 @@ export default function FinalCta() {
         </h2>
         <div className="flex flex-col mt-8 sm:flex-row gap-4 justify-center items-center relative z-10">
           <Button
+            onClick={() => router.push("/dashboard")}
             size="default"
             className="bg-white text-blue-600 hover:bg-slate-50 rounded-full px-12 h-16 text-lg font-bold"
           >

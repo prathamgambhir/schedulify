@@ -1,5 +1,5 @@
 import { getUserByUsername } from "@/actions/userAction";
-import EventCard from "@/components/event-card";
+import EventCard from "@/components/event/event-card";
 import { Avatar } from "@/components/ui/avatar";
 import {
   Card,

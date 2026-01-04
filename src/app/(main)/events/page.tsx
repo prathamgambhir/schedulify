@@ -1,5 +1,5 @@
 import { getUserEvents } from "@/actions/eventAction";
-import EventCard from "@/components/event-card";
+import EventCard from "@/components/event/event-card";
 import React from "react";
 
 const Events = async () => {
@@ -14,7 +14,7 @@ const Events = async () => {
   }
 
   return (
-    <div className="grid grid-cols-1 grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {userEvents?.map((event) => (
         <EventCard key={event.id} event={event} username={username} />
       ))}

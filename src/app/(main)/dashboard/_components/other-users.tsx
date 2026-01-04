@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import useFetch from "@/hooks/use-fetch";
 import { SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const OtherUser: React.FC = () => {
+  const router = useRouter();
   const {
     fn: fnGetOtherUsers,
     data: otherusers,
@@ -32,21 +34,21 @@ const OtherUser: React.FC = () => {
           {otherusers?.map((user) => (
             <div
               key={user.username}
-              className="h-16 px-4 flex flex-col justify-center border border-neutral-200"
+              className="h-16 px-4 flex flex-col justify-center border border-neutral-200 rounded-md mb-2"
             >
-              <div className="text-sm font-semibold flex gap-2">
+              <div className="text-sm font-semibold flex gap-2" onClick={() => router.push(`/${user.username}`)}>
                 <Avatar>
                   <AvatarImage
                     src={user?.image!}
-                    className="bg-black text-white"
+                    className="bg-black text-white cursor-pointer"
                   />
                   <AvatarFallback>
                     {user.name?.toUpperCase().charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-xs">{user.name?.toUpperCase()}</p>
-                  <p className="font-light text-xs">@{user.username}</p>
+                  <p className="text-xs cursor-pointer">{user.name?.toUpperCase()}</p>
+                  <p className="font-light text-xs cursor-pointer">@{user.username}</p>
                 </div>
               </div>
             </div>
@@ -62,6 +64,7 @@ interface searchedUser {
 }
 
 const SearchedUsers: React.FC<searchedUser> = ({ input }) => {
+  const router = useRouter()
   const {
     fn: fnGetSearchedUser,
     data: searchedUser,
@@ -95,21 +98,21 @@ const SearchedUsers: React.FC<searchedUser> = ({ input }) => {
           {searchedUser?.map((user) => (
             <div
               key={user.username}
-              className="h-16 px-4 flex flex-col justify-center border border-neutral-200"
+              className="h-16 px-4 flex flex-col justify-center border border-neutral-200 rounded-md mb-2"
             >
-              <div className="text-sm font-semibold flex gap-2">
+              <div className="text-sm font-semibold flex gap-2" onClick={() => router.push(`/${user.username}`)}>
                 <Avatar>
                   <AvatarImage
                     src={user?.image!}
-                    className="bg-black text-white"
+                    className="bg-black text-white cursor-pointer"
                   />
                   <AvatarFallback>
                     {user.name?.toUpperCase().charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-xs">{user.name?.toUpperCase()}</p>
-                  <p className="font-light text-xs">@{user.username}</p>
+                  <p className="text-xs cursor-pointer">{user.name?.toUpperCase()}</p>
+                  <p className="font-light text-xs cursor-pointer">@{user.username}</p>
                 </div>
               </div>
             </div>
@@ -135,7 +138,7 @@ const SearchUsersSection = () => {
           <SearchIcon className="text-white font-bold h-5 w-5" />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 mx-4 p-0 rounded-md border border-black-300 shadow-sm">
+      <CardContent className="flex-1 mx-4 p-0 max-h-90 overflow-scroll mask-b-from-80%">
         {input.length >= 1 ? <SearchedUsers input={input} /> : <OtherUser />}
       </CardContent>
     </Card>

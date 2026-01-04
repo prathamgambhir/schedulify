@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Loader } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default async function LoginPage() {
   const session = await auth();
@@ -62,7 +63,7 @@ export default async function LoginPage() {
               >
                 Login
               </Button>
-              <span className="text-sm text-muted-foreground flex items-center justify-center mt-4 mb-4 font-bold text-lg ">
+              <span className="text-muted-foreground flex items-center justify-center mt-4 mb-4 font-bold text-lg ">
                 Or
               </span>
             </div>

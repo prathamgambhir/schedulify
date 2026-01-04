@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import UniqueUrlForm from "@/components/dashBoardUrlForm";
+import UniqueUrlForm from "@/components/dashboard/dashBoardUrlForm";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
 import UpcomingMeets from "./_components/upcoming-meets";
@@ -35,7 +35,7 @@ const Dashboard: React.FC = async () => {
                 Upcoming Meetings
               </h1>
             </CardHeader>
-            <CardContent>
+            <CardContent className="overflow-scroll">
               <UpcomingMeets />
             </CardContent>
           </Card>

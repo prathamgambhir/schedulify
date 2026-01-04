@@ -1,13 +1,16 @@
 "use client"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import {motion} from "motion/react"
 import Image from "next/image"
 import heroBgd from "../../public/hero-bgd.png";
+import { useRouter } from "next/navigation"
 
 
 export default function Hero() {
+  const router = useRouter();
     return <section className="relative px-6 pt-12 pb-16 lg:pt-8 lg:pb-32 overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           <motion.div
@@ -28,6 +31,7 @@ export default function Hero() {
             </p>
             <div className="flex sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <Button
+                onClick={() => router.push("/dashboard")}
                 size="lg"
                 className="rounded-full px-24 h-14 w-56 text-lg bg-blue-600 hover:bg-blue-700 shadow-2xl shadow-blue-200 transition-all hover:-translate-y-1"
               >

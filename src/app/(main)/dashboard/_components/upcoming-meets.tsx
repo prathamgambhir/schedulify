@@ -4,9 +4,11 @@ import { getLatestMeetUpdates } from "@/actions/dashboardAction";
 import { Spinner } from "@/components/ui/spinner";
 import useFetch from "@/hooks/use-fetch";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const UpcomingMeets = () => {
+  const router = useRouter();
   const {
     fn: fnLatestMeetUpdates,
     loading,
@@ -28,11 +30,12 @@ const UpcomingMeets = () => {
           Loading
         </p>
       ) : upcomingmeets && upcomingmeets?.length > 0 ? (
-        <div className="flex flex-col gap-6 overflow-y-auto">
+        <div className="flex flex-col gap-6 ">
           {upcomingmeets?.map((meet) => (
             <div
               key={meet.id}
               className="h-16 rounded-lg p-2 flex flex-col justify-center border border-neutral-100 shadow-sm"
+              onClick={() => router.push("/meetings")}
             >
               <div className="font-semibold text-sm">{meet.event.title}</div>
               <div className="text-xs font-light">

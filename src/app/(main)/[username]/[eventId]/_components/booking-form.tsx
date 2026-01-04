@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createBooking } from "@/actions/bookingAction";
 import useFetch from "@/hooks/use-fetch";
+import toast from "react-hot-toast";
 
 type BookingFormValues = {
   name: string;
@@ -69,7 +70,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
         ?.slots || []
     : [];
 
-  const {data: fnData, loading, fn: fnCreateBooking, error } = useFetch(createBooking);
+  const {
+    data: fnData,
+    loading,
+    fn: fnCreateBooking,
+    error,
+  } = useFetch(createBooking);
   const onSubmit = async (data: BookingFormValues) => {
     if (!data.time || !data.date || !event?.duration) return;
 
@@ -88,23 +94,71 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
         additionalInfo: data.additionalInfo,
       });
 
+      toast.success("Meeting scheduled successfully");
     } catch (error) {
       console.log("failed to submit slot booking form", error);
     }
   };
 
-  if(fnData){
-    return(
-      <div className="col-span-16 border border-black/50 bg-white rounded-md flex flex-col justify-center items-center pb-12">
-        <h2 className="text-2xl font-bold p-4 m-2">Booking Sucessfull !!</h2>
-        {fnData.meetLink && (
-          <div className="flex gap-2 text-sm font-semibold ">
-            <h2>Here's your meeting link :</h2>
-            <a href={fnData.meetLink} target="_blank" className="text-blue-600 underline text-md"> Join Google Meet</a>
+  if (fnData) {
+    return (
+      <div className="col-span-16 flex flex-col items-center justify-center border border-slate-200 bg-slate-50/50 rounded-3xl">
+        <div className="w-full bg-white bordershadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-8 md:p-12 text-center">
+          {/* Animated Success Ring */}
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-200">
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
           </div>
-        )}
+
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+            You're all set!
+          </h2>
+          <p className="mt-3 text-slate-500 font-medium">
+            Your booking is confirmed and added to your calendar.
+          </p>
+
+          {fnData.meetLink && (
+            <div className="mt-10 group">
+              <div className="relative overflow-hidden rounded-2xl bg-slate-50 border border-slate-200 p-6 transition-all hover:border-blue-300 hover:bg-blue-50/30">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                  Meeting Connection
+                </h3>
+
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
+                    <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                    <span className="font-mono text-sm truncate max-w-[200px]">
+                      {fnData.meetLink.replace("https://", "")}
+                    </span>
+                  </div>
+
+                  <a
+                    href={fnData.meetLink}
+                    target="_blank"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-4 text-sm font-bold text-white transition-all hover:bg-blue-600 hover:shadow-xl hover:shadow-blue-200 active:scale-95"
+                  >
+                    Join Google Meet
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    )
+    );
   }
 
   return (

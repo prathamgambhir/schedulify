@@ -19,7 +19,7 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
       "./src/lib/prisma.ts",
-      "./src/hooks/use-fetch.ts"
+      "./src/hooks/use-fetch.ts",
     ],
   },
 ];

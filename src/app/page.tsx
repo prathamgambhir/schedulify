@@ -1,22 +1,6 @@
 "use client";
 
 import React from "react";
-import {
-  ArrowRight,
-  Calendar,
-  Clock,
-  LinkIcon,
-  Mail,
-  Video,
-  CheckCircle2,
-  Zap,
-  Globe,
-  Github,
-  Twitter,
-} from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import Hero from "@/sections/hero";
 import Features from "@/sections/features";
 import Workflow from "@/sections/worlkflow";
@@ -42,3 +26,13 @@ export default function LandingPage() {
     </div>
   );
 }
+
+
+/*
+ToDo Left
+>>>>[fixed]-All the buttons and clickable items should be redirecting to something
+>>>>>[fixed]-Toastify effects should be added on Login, signup, create events, delete events, update usernmae, Booking etc
+>>>>[fixedddd]Signup ke baad turant signin not working
+-responsive
+-Dark mode if possible
+*/

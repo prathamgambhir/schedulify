@@ -22,17 +22,17 @@ export const signup = async (formdata: FormData) => {
 
   const { name, email, username, password } = parsedData.data;
 
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (existingUser) {
-    throw new Error("User already exists");
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      throw new Error("User already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     await prisma.user.create({
       data: {
         name,
@@ -42,15 +42,8 @@ export const signup = async (formdata: FormData) => {
       },
     });
 
-    //ToDo : fix followup signin
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: true,
-      redirectTo: "/dashboard",
-    });
+    return { success: true, credentials: { email, password } };
 
-    // console.log(newUser)
   } catch (err) {
     console.log(err);
     throw new Error("Something went wriong");

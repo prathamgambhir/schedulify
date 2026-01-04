@@ -43,23 +43,25 @@ export const createBooking = async (bookingData: CreateBookingPayload) => {
 
     oAuth2Client.setCredentials({ refresh_token: refreshToken });
 
-    const tokenResponse = await oAuth2Client.getAccessToken();
-    const accessToken = tokenResponse.token ?? tokenResponse;
+    // const tokenResponse = await oAuth2Client.getAccessToken();
+    // const accessToken = tokenResponse.token ?? tokenResponse;
 
     const calender = google.calendar({ version: "v3", auth: oAuth2Client });
 
     const meetGenerateResponse = await calender.events.insert({
       calendarId: "primary",
       conferenceDataVersion: 1,
-      sendNotifications: true,
+      sendUpdates: "all",
       requestBody: {
         summary: `${bookingData.name}-${event.title}`,
         description: bookingData.additionalInfo,
-        start: { dateTime: bookingData.startTime },
-        end: { dateTime: bookingData.endTime },
+        start: { dateTime: bookingData.startTime , timeZone: "UTC"},
+        end: { dateTime: bookingData.endTime , timeZone: "UTC"},
         attendees: [{ email: bookingData.email }, { email: event.user.email }],
         conferenceData: {
-          createRequest: { requestId: `${event.id}-${Date.now()}` },
+          createRequest: { requestId: `${event.id}-${Date.now()}`, conferenceSolutionKey:{
+            type: "hangoutsMeet"
+          } },
         },
       },
     });

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Check, Calendar, Link as LinkIcon, Users, Zap } from "lucide-react";
+import { Check } from "lucide-react";
 
 const steps = [
   {
@@ -10,7 +10,7 @@ const steps = [
     title: "Set your availability",
     description: "Define exactly when you're free to meet. Our system syncs with your Google Calendar to prevent double-bookings automatically.",
     features: ["Custom working hours", "Buffer times between meetings"],
-    video: "/videos/availability.mp4",
+    video: "/assets/availability-demo.mp4",
     align: "right", // Text on right, Video on left
   },
   {
@@ -18,7 +18,7 @@ const steps = [
     title: "Create public & private events",
     description: "Design different meeting types for different needs. Use public links for general booking or private links for exclusive consultations.",
     features: ["Unique event URLs", "One-time use links"],
-    video: "/videos/events.mp4",
+    video: "/assets/createEvent-demo.mp4",
     align: "left", // Text on left, Video on right
   },
   {
@@ -26,7 +26,7 @@ const steps = [
     title: "Let others book effortlessly",
     description: "Share your link and let guests pick a time that works for everyone. No more back-and-forth emails.",
     features: ["Mobile-optimized booking", "Instant calendar invites"],
-    video: "/videos/booking.mp4",
+    video: "/assets/booking-demo.mp4",
     align: "right",
   },
   {
@@ -34,7 +34,7 @@ const steps = [
     title: "Automate your workflow",
     description: "Sit back as Schedulify generates Google Meet links, sends email reminders, and updates your calendar in real-time.",
     features: ["Auto Google Meet links", "Email notifications"],
-    video: "/videos/automation.mp4",
+    video: "/assets/meetlink-demo.mp4",
     align: "left",
   },
 ];
@@ -111,13 +111,13 @@ export default function HowItWorks() {
                       </div>
                     </div>
                     
-                    <div className="aspect-video bg-slate-50 relative overflow-hidden">
+                    <div className="aspect-video bg-slate-50 relative overflow-hidden ">
                        <video 
                         autoPlay 
                         loop 
                         muted 
                         playsInline 
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover "
                        >
                         <source src={step.video} type="video/mp4" />
                        </video>

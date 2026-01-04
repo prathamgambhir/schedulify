@@ -1,5 +1,5 @@
 import { availabilityDataType, getAvailabilityData } from '@/actions/availabilityAction'
-import AvailabilityForm from '@/components/availability-form'
+import AvailabilityForm from '@/components/availability/availability-form'
 import React from 'react'
 import { defaultAvailability } from './data'
 
