@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
-import { Button } from "../ui/button";
-import { PenBox } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import AuthContent from "./authContent";
 import Image from "next/image";
-import NavLogo from "../../../public/nav-logo.jpg";
 import { usePathname } from "next/navigation";
-import CreateEventDialog from "@/components/navbar/createEvent";
 import { useSession } from "next-auth/react";
+import { motion, AnimatePresence } from "framer-motion";
+import { PenBox } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import NavLogo from "../../../public/nav-logo.jpg";
+import AuthContent from "./authContent";
+import CreateEventDialog from "@/components/navbar/createEvent";
 
 const navLinks = [
   { path: "/dashboard", label: "Dashboard" },
@@ -19,88 +21,149 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const session = useSession();
+  const { data: session } = useSession();
   const pathname = usePathname();
-  const isLanding =
-    pathname === "/" || pathname == "/login" || pathname == "/signup";
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const showFullNav = session?.user || (!isAuthPage && pathname !== "/");
+
+  // Hamburger Icon Variants
+  const iconVariants = {
+    closed: { rotate: 0, y: 0 },
+    opened: (custom: number) => ({
+      rotate: custom === 1 ? 45 : -45,
+      y: custom === 1 ? 9 : -6,
+    }),
+  };
 
   return (
-    <header className="w-full flex justify-center items-center sticky top-8 lg:mb-14 z-50">
-      <div className="w-full sticky h-18 top-2 bg-white/80 backdrop-blur-sm shadow-md border border-black/15 shadow-black/10 rounded-xl flex px-4 py-2 justify-between items-center">
-        <Link href={"/"}>
-          <Image
-            src={NavLogo}
-            alt="logo"
-            width={150}
-            height={60}
-            className="cursor-pointer mt-[3px]"
-          ></Image>
-        </Link>
-        {isLanding ? (
-          session.data?.user ? (
-            <div className="w-[64%] flex items-center justify-between">
-              <div className="flex gap-8 items-center">
-                {navLinks.map((link, index) => (
+    <>
+      {/* dummy height */}
+      <div className="h-28"></div>
+      <header className="fixed top-6 left-0 right-0 z-50 px-4">
+        <div className="max-w-7xl mx-auto relative">
+          <nav className="flex items-center justify-between bg-white/90 backdrop-blur-md border border-black/10 shadow-lg rounded-2xl px-4 py-2 h-16 relative z-50">
+            {/* LOGO */}
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                src={NavLogo}
+                alt="logo"
+                width={130}
+                height={50}
+                className="w-auto h-10"
+                priority
+              />
+            </Link>
+
+            {/* DESKTOP NAV */}
+            {showFullNav && (
+              <div className="hidden md:flex items-center gap-6 pl-8">
+                {navLinks.map((link) => (
                   <Link
-                    key={index}
+                    key={link.path}
                     href={link.path}
-                    className={`text-md font-normal ${
-                      pathname == link.path ? "text-blue-700 font-semibold" : ""
+                    className={`text-sm font-medium transition-colors hover:text-blue-600 ${
+                      pathname === link.path ? "text-blue-600" : "text-gray-600"
                     }`}
                   >
                     {link.label}
                   </Link>
                 ))}
               </div>
-              <div className="flex gap-4">
-                <Link href={"/events?create=true"}>
-                  <Button variant={"outline"} className="cursor-pointer">
-                    <PenBox />
-                    <CreateEventDialog />
-                  </Button>
-                </Link>
-                <AuthContent />
-              </div>
-            </div>
-          ) : (
-            <div className="flex gap-4">
-              <Link href={"/events?create=true"}>
-                <Button variant={"outline"} className="cursor-pointer">
-                  <PenBox />
-                  <CreateEventDialog />
-                </Button>
-              </Link>
+            )}
+
+            {/* RIGHT ACTIONS */}
+            <div className="flex items-center gap-3">
+              {showFullNav && (
+                <div className="hidden sm:block">
+                  <Link href={"/events?create=true"}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-2 border-dashed"
+                    >
+                      <PenBox className="w-4 h-4" />
+                      <CreateEventDialog />
+                    </Button>
+                  </Link>
+                </div>
+              )}
+
               <AuthContent />
-            </div>
-          )
-        ) : (
-          <div className="w-[64%] flex items-center justify-between">
-            <div className="flex gap-8 items-center">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  href={link.path}
-                  className={`text-md font-normal ${
-                    pathname == link.path ? "text-blue-700 font-semibold" : ""
-                  }`}
+
+              {/* HAMBURGER BUTTON */}
+              {showFullNav && (
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none"
                 >
-                  {link.label}
-                </Link>
-              ))}
+                  <motion.span
+                    animate={isMenuOpen ? "opened" : "closed"}
+                    variants={iconVariants}
+                    custom={1}
+                    className="w-6 h-0.5 bg-gray-600 rounded-full"
+                  />
+                  <motion.span
+                    animate={{ opacity: isMenuOpen ? 0 : 1 }}
+                    className="w-6 h-0.5 bg-gray-600 rounded-full"
+                  />
+                  <motion.span
+                    animate={isMenuOpen ? "opened" : "closed"}
+                    variants={iconVariants}
+                    custom={2}
+                    className="w-6 h-0.5 bg-gray-600 rounded-full"
+                  />
+                </button>
+              )}
             </div>
-            <div className="flex gap-4">
-              <Link href={"/events?create=true"}>
-                <Button variant={"outline"} className="cursor-pointer">
-                  <PenBox />
-                  <CreateEventDialog />
-                </Button>
-              </Link>
-              <AuthContent />
-            </div>
-          </div>
-        )}
-      </div>
-    </header>
+          </nav>
+
+          {/* MOBILE MENU DROPDOWN */}
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-20 left-0 right-0 bg-white border border-black/10 shadow-xl rounded-2xl p-4 flex flex-col gap-2 md:hidden z-40"
+              >
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    className={`p-3 rounded-xl font-medium transition-colors ${
+                      pathname === link.path
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="pt-2 mt-2 border-t border-gray-100 sm:hidden">
+                  <Link href={"/events?create=true"}>
+                    <Button
+                      className="w-full justify-start gap-2"
+                      variant="ghost"
+                    >
+                      <PenBox className="w-4 h-4" />
+                      <CreateEventDialog />
+                    </Button>
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </header>
+    </>
   );
 };
 

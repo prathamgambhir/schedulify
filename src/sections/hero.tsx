@@ -23,7 +23,7 @@ export default function Hero() {
             </Badge>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
               Own your time, <br />
-              <span className="text-blue-600">Schedule effortless.</span>
+              <span className="text-blue-600">Schedule effortlessly.</span>
             </h1>
             <p className="text-xl text-slate-600 max-w-xl mx-auto lg:mx-0">
               The professional way to manage meetings. Sync Google Calendar,
