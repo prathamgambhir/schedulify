@@ -108,11 +108,9 @@ export const SignupForm = () => {
       <CardFooter className="text-sm text-center flex justify-center items-center text-muted-foreground pt-4">
         <span>
           Already have an account?
-          <Link href={"/login"}>
-            <Button variant={"link"} className="cursor-pointer">
-              Login
-            </Button>
-          </Link>
+          <Button asChild variant={"link"} className="cursor-pointer">
+            <Link href={"/login"}>Login</Link>
+          </Button>
         </span>
       </CardFooter>
     </Card>

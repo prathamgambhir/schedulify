@@ -63,7 +63,7 @@ const Navbar = () => {
 
             {/* DESKTOP NAV */}
             {showFullNav && (
-              <div className="hidden md:flex items-center gap-6 pl-8">
+              <div className="max-w-xl hidden md:flex items-center gap-6 pl-8">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
@@ -82,20 +82,22 @@ const Navbar = () => {
             <div className="flex items-center gap-3">
               {showFullNav && (
                 <div className="hidden sm:block">
-                  <Link href={"/events?create=true"}>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="gap-2 border-dashed"
-                    >
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="gap-2 border-dashed"
+                  >
+                    <Link href={"/events?create=true"}>
                       <PenBox className="w-4 h-4" />
                       <CreateEventDialog />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               )}
-
-              <AuthContent />
+              <div>
+                <AuthContent />
+              </div>
 
               {/* HAMBURGER BUTTON */}
               {showFullNav && (
@@ -148,15 +150,16 @@ const Navbar = () => {
                   </Link>
                 ))}
                 <div className="pt-2 mt-2 border-t border-gray-100 sm:hidden">
-                  <Link href={"/events?create=true"}>
-                    <Button
-                      className="w-full justify-start gap-2"
-                      variant="ghost"
-                    >
+                  <Button
+                    asChild
+                    className="w-full justify-start gap-2"
+                    variant="ghost"
+                  >
+                    <Link href={"/events?create=true"}>
                       <PenBox className="w-4 h-4" />
                       <CreateEventDialog />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             )}

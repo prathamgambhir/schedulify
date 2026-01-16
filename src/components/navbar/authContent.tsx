@@ -1,4 +1,3 @@
-"use client";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { LogOutIcon } from "lucide-react";
@@ -47,9 +46,9 @@ const AuthContent = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
-    <Link href={"/login"}>
-      <Button className="cursor-pointer">Login</Button>
-    </Link>
+    <Button asChild className="cursor-pointer">
+      <Link href={"/login"}>Login</Link>
+    </Button>
   );
 };
 

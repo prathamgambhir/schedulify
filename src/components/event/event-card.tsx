@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -43,12 +43,19 @@ const EventCard: React.FC<EventCard> = ({
   isPublicPage = false,
 }) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [origin, setOrigin] = useState<string>("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${window.location.origin}/${username}/${event.id}`
+        `${origin}/${username}/${event.id}`
       );
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 3000);
@@ -76,7 +83,7 @@ const EventCard: React.FC<EventCard> = ({
         <CardHeader>
           <CardTitle className="text-base md:text-lg">
             <Link
-              href={`${window?.location.origin}/${username}/${event.id}`}
+              href={`${origin}/${username}/${event.id}`}
               target="_blank"
               className="hover:text-blue-600 transition-colors"
             >
@@ -126,3 +133,4 @@ const EventCard: React.FC<EventCard> = ({
 };
 
 export default EventCard;
+
