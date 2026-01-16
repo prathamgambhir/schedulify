@@ -35,7 +35,7 @@ export default function RootLayout({
         <SessionProvider>
           <Suspense>
             <main
-              className="min-h-screen pl-20 pr-20"
+              className="min-h-screen px-2 lg:px-20"
             >
               <Navbar />
               {children}

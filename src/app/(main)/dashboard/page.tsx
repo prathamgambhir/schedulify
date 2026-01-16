@@ -40,7 +40,7 @@ const Dashboard: React.FC = async () => {
             </CardContent>
           </Card>
         </div>
-        <div className="min-h-96 flex flex-1 flex-col">
+        <div className="max-h-96 flex flex-1 flex-col">
           <SearchUsersSection />
         </div>
       </div>
