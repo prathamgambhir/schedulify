@@ -30,24 +30,24 @@ const OtherUser: React.FC = () => {
           Loading
         </p>
       ) : (
-        <div className="flex flex-col overflow-y-auto">
+        <div className="flex flex-col gap-2 overflow-y-auto">
           {otherusers?.map((user) => (
             <div
               key={user.username}
-              className="h-16 px-4 flex flex-col justify-center border border-neutral-200 rounded-md mb-2"
+              className="h-auto md:h-16 px-3 md:px-4 py-2 md:py-0 flex flex-col justify-center border border-neutral-200 rounded-xl"
             >
-              <div className="text-sm font-semibold flex gap-2" onClick={() => router.push(`/${user.username}`)}>
-                <Avatar>
+              <div className="text-sm font-semibold flex gap-3 items-center" onClick={() => router.push(`/${user.username}`)}>
+                <Avatar className="h-10 w-10 md:h-8 md:w-8">
                   <AvatarImage
                     src={user?.image!}
                     className="bg-black text-white cursor-pointer"
                   />
-                  <AvatarFallback>
+                  <AvatarFallback className="text-xs">
                     {user.name?.toUpperCase().charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-xs cursor-pointer">{user.name?.toUpperCase()}</p>
+                  <p className="text-xs md:text-sm cursor-pointer">{user.name?.toUpperCase()}</p>
                   <p className="font-light text-xs cursor-pointer">@{user.username}</p>
                 </div>
               </div>
@@ -94,24 +94,24 @@ const SearchedUsers: React.FC<searchedUser> = ({ input }) => {
           Loading
         </p>
       ) : (
-        <div className="flex flex-col overflow-y-auto">
+        <div className="flex flex-col gap-2 overflow-y-auto">
           {searchedUser?.map((user) => (
             <div
               key={user.username}
-              className="h-16 px-4 flex flex-col justify-center border border-neutral-200 rounded-md mb-2"
+              className="h-auto md:h-16 px-3 md:px-4 py-2 flex flex-col justify-center border border-neutral-200 rounded-md"
             >
-              <div className="text-sm font-semibold flex gap-2" onClick={() => router.push(`/${user.username}`)}>
-                <Avatar>
+              <div className="text-sm font-semibold flex gap-3 items-center" onClick={() => router.push(`/${user.username}`)}>
+                <Avatar className="h-10 w-10 md:h-8 md:w-8">
                   <AvatarImage
                     src={user?.image!}
                     className="bg-black text-white cursor-pointer"
                   />
-                  <AvatarFallback>
+                  <AvatarFallback className="text-xs">
                     {user.name?.toUpperCase().charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-xs cursor-pointer">{user.name?.toUpperCase()}</p>
+                  <p className="text-xs md:text-sm cursor-pointer">{user.name?.toUpperCase()}</p>
                   <p className="font-light text-xs cursor-pointer">@{user.username}</p>
                 </div>
               </div>
@@ -126,19 +126,19 @@ const SearchedUsers: React.FC<searchedUser> = ({ input }) => {
 const SearchUsersSection = () => {
   const [input, setInput] = useState<string>("");
   return (
-    <Card className="min-h-96 flex flex-1 flex-col">
-      <CardHeader className="flex justify-start">
+    <Card className="h-auto md:min-h-96 flex flex-1 flex-col">
+      <CardHeader className="flex justify-start space-y-0 gap-2">
         <Input
-          className="h-10 border border-neutral-200 shaadow-md"
+          className="h-10 md:h-10 border border-neutral-200 shadow-md"
           placeholder="Search users"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="bg-black/80 p-2 rounded-lg border border-neutral-200 shaadow-md">
+        <div className="bg-black/80 p-2 rounded-lg border border-neutral-200 shadow-md">
           <SearchIcon className="text-white font-bold h-5 w-5" />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 mx-4 p-0 max-h-90 overflow-scroll mask-b-from-80%">
+      <CardContent className="flex-1 mx-2 md:mx-4 p-0 max-h-60 md:max-h-96 overflow-scroll mask-b-from-80%">
         {input.length >= 1 ? <SearchedUsers input={input} /> : <OtherUser />}
       </CardContent>
     </Card>

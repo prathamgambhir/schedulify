@@ -11,17 +11,18 @@ const Dashboard: React.FC = async () => {
   // console.log(user)
 
   return (
-    <div className="px-5 mt-6 flex flex-col gap-8 pb-16">
-      <Card className="h-14 w-8xl flex flex-col justify-center">
+    <div className="px-4 md:px-5 mt-6 flex flex-col gap-6 md:gap-8 pb-16">
+      <Card className="h-14 w-full max-w-7xl flex flex-col justify-center">
         <CardHeader>
-          <h1 className="text-md font-medium mt-1">Welcome, {user?.name}</h1>
+          <h1 className="text-lg md:text-xl font-medium mt-1">Welcome, {user?.name}</h1>
         </CardHeader>
       </Card>
-      <div className="flex gap-6">
-        <div className="min-w-4xl flex flex-col gap-4">
-          <Card className="max-h-52 flex flex-col justify-center">
+      {/* Mobile: stacked, Desktop: side by side */}
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 w-full max-w-7xl">
+        <div className="w-full lg:w-[75%] flex flex-col gap-4">
+          <Card className="flex flex-col justify-center">
             <CardHeader>
-              <h1 className="text-md font-semibold mt-1 pb-0">
+              <h1 className="text-md md:text-lg font-semibold mt-1 pb-0">
                 Your unique Link
               </h1>
             </CardHeader>
@@ -29,18 +30,18 @@ const Dashboard: React.FC = async () => {
               <UniqueUrlForm defaultUsername={user?.username} />
             </CardContent>
           </Card>
-          <Card className="max-h-64 flex flex-col justify-center">
+          <Card className="flex flex-col justify-center">
             <CardHeader>
               <h1 className="text-lg text-center font-semibold mt-1 pb-0">
                 Upcoming Meetings
               </h1>
             </CardHeader>
-            <CardContent className="overflow-scroll">
+            <CardContent className="overflow-scroll max-h-64">
               <UpcomingMeets />
             </CardContent>
           </Card>
         </div>
-        <div className="max-h-96 flex flex-1 flex-col">
+        <div className="max-h-96 w-full lg:w-auto lg:flex-1 flex flex-col">
           <SearchUsersSection />
         </div>
       </div>

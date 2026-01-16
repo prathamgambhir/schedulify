@@ -78,27 +78,27 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-8">
-      <div className="flex gap-2 items-center">
-        <span className="text-sm font-bold opacity-70">{origin}/</span>
+    <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 md:gap-8">
+      <div className="flex gap-2 items-center flex-wrap">
+        <span className="text-sm md:text-base font-bold opacity-70">{origin}/</span>
         <Input
           {...register("username")}
           placeholder="username"
-          className="h-8"
+          className="h-9 md:h-8 w-full md:w-48"
         />
       </div>
       {errors.username && (
-        <p className="text-sm fonr-bold text-red-600 opacity-80">
+        <p className="text-sm font-bold text-red-600 opacity-80">
           {errors.username.message}
         </p>
       )}
       {error && (
-        <p className="text-sm fonr-bold text-red-600 opacity-80">
+        <p className="text-sm font-bold text-red-600 opacity-80">
           Unable to update username
         </p>
       )}
-      <div className="flex items-center gap-4">
-        <Button variant={"default"} type="submit">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <Button variant={"default"} type="submit" className="w-full sm:w-auto">
           {loading ? (
             <>
               <Spinner /> Updating....
@@ -107,7 +107,7 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
             <>Update Username</>
           )}
         </Button>
-        <Button type="button" variant={"outline"} onClick={handleCopy}>{isCopied ? "Copied" : "Copy Link"}</Button>
+        <Button type="button" variant={"outline"} onClick={handleCopy} className="w-full sm:w-auto">{isCopied ? "Copied" : "Copy Link"}</Button>
       </div>
     </form>
   );
