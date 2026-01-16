@@ -60,7 +60,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
       onSubmit={handleSubmit(submitForm)}
       //as event can propgate (i.e bubble up) to the dialogso and making the form submit to be never called so we use stopPropogation()
       onClick={(e) => e.stopPropagation()}
-      className="px-5 flex flex-col gap-5 mt-4"
+      className="px-4 md:px-5 flex flex-col gap-4 md:gap-5 mt-4"
     >
       <div>
         <label
@@ -69,7 +69,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
         >
           Event Title
         </label>
-        <Input id="title" {...register("title")} className="mt-1" />
+        <Input id="title" {...register("title")} className="mt-1 h-10" />
         {errors.title && (
           <p className="text-red-500 text-sm font-medium mt-1">
             {errors.title.message}
@@ -86,7 +86,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
         <Textarea
           id="description"
           {...register("description")}
-          className="mt-1 max-w-xs max-h-[200px] overflow-y-auto"
+          className="mt-1 max-h-[150px] md:max-h-[200px] overflow-y-auto"
         />
         {errors.description && (
           <p className="text-red-500 text-sm font-medium mt-1">
@@ -104,7 +104,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
         <Input
           id="duration"
           {...register("duration", { valueAsNumber: true })}
-          className="mt-1"
+          className="mt-1 h-10"
         />
         {errors.duration && (
           <p className="text-red-500 text-sm font-medium mt-1">
@@ -130,7 +130,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
                 field.onChange(value === "true")
               }
             >
-              <SelectTrigger className="mt-2">
+              <SelectTrigger className="mt-2 h-10">
                 <SelectValue placeholder="Select Privacy" />
               </SelectTrigger>
               <SelectContent>
@@ -146,7 +146,7 @@ const EventForm: React.FC<props> = ({ handleClose, initialData = {} }) => {
           </p>
         )}
       </div>
-      <Button type="submit">
+      <Button type="submit" className="w-full md:w-auto">
         {loading ? (
           <>
             <Spinner /> Scheduling your event...

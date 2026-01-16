@@ -7,14 +7,14 @@ const Events = async () => {
 
   if (userEvents.length === 0) {
     return (
-      <p className="text-lg lg:text-2xl font-semibold opacity-80 text-center mt-16">
+      <p className="text-lg md:text-xl lg:text-2xl font-semibold opacity-80 text-center mt-16">
         You haven't created any events yet
       </p>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
       {userEvents?.map((event) => (
         <EventCard key={event.id} event={event} username={username} />
       ))}

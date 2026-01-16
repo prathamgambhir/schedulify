@@ -72,47 +72,48 @@ const EventCard: React.FC<EventCard> = ({
 
   return (
     <div>
-      <Card className="w-full h-64">
+      <Card className="w-full h-auto md:h-64 flex flex-col">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-base md:text-lg">
             <Link
               href={`${window?.location.origin}/${username}/${event.id}`}
               target="_blank"
+              className="hover:text-blue-600 transition-colors"
             >
               {event.title}
             </Link>
           </CardTitle>
-          <CardDescription className="flex justify-between">
+          <CardDescription className="flex flex-col sm:flex-row sm:justify-between gap-1 text-xs md:text-sm">
             <span>{`${event.duration} mins | ${
               event.isPrivate ? "Private" : "Public"
             }`}</span>
             <span>{event._count.bookings} Bookings</span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="h-24 overflow-y-auto">
-          <p>{event.description}</p>
+        <CardContent className="flex-1 overflow-y-auto h-20 md:h-24">
+          <p className="text-sm">{event.description}</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-2">
           {!isPublicPage && (
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 flex gap-2 w-full">
               <Button
                 variant={"outline"}
-                className={isCopied ? "" : "bg-blue-500 text-white"}
+                className={`flex-1 sm:flex-none ${isCopied ? "" : "bg-blue-500 text-white hover:bg-blue-600"}`}
                 onClick={handleCopy}
               >
-                <Link2 />
-                {isCopied ? "Copied" : "Copy Link"}
+                <Link2 className="w-4 h-4 mr-1" />
+                {isCopied ? "Copied" : "Copy"}
               </Button>
-              <Button variant={"destructive"} onClick={handleDelete}>
+              <Button variant={"destructive"} className="flex-1 sm:flex-none" onClick={handleDelete}>
                 {loading ? (
                   <>
                     <Spinner />
-                    Deleting...
+                    <span className="ml-1">Deleting...</span>
                   </>
                 ) : (
                   <>
-                    <Trash />
-                    Delete
+                    <Trash className="w-4 h-4" />
+                    <span className="ml-1 hidden sm:inline">Delete</span>
                   </>
                 )}
               </Button>

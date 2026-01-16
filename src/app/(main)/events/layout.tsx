@@ -11,7 +11,7 @@ export default function EventPageLayout({children}: Readonly<{children: React.Re
         </div>
       }
     >
-      <div className="px-5 mt-6 pb-12">
+      <div className="md:px-4 mt-6 pb-12">
         {children}
       </div>
     </Suspense>
