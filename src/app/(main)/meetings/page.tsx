@@ -6,18 +6,18 @@ import React, { Suspense } from "react";
 
 const Meeting = async () => {
   return (
-    <div className="p-5">
+    <div className="p-4 md:p-5">
       <Tabs defaultValue="upcoming" className="">
-        <TabsList className="text-sm font-bold bg-slate-50 border border-black/10 shadow-sm">
-          <TabsTrigger value="upcoming" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-50">Upcoming</TabsTrigger>
-          <TabsTrigger value="past" className="data-[state=active]:bg-black data-[state=active]:text-white ">Past</TabsTrigger>
+        <TabsList className="text-sm font-bold bg-slate-50 border border-black/10 shadow-sm w-full md:w-64 flex">
+          <TabsTrigger value="upcoming" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-50 px-4 md:px-6">Upcoming</TabsTrigger>
+          <TabsTrigger value="past" className="data-[state=active]:bg-black data-[state=active]:text-white px-4 md:px-6">Past</TabsTrigger>
         </TabsList>
-        <TabsContent value="upcoming">
+        <TabsContent value="upcoming" className="mt-4">
           <Suspense fallback={<p className="my-4 mx-2 text-sm font-bold flex items-center gap-2"><Spinner/> Loading upcoming meetings ...</p>}>
             <UpcomingMeets />
           </Suspense>
         </TabsContent>
-        <TabsContent value="past">
+        <TabsContent value="past" className="mt-4">
           <Suspense fallback={<p className="my-4 mx-2 text-sm font-bold flex items-center gap-2"><Spinner/> Loading past meetings ...</p>}>
             <PastMeets />
           </Suspense>

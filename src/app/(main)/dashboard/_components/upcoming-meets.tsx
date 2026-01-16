@@ -30,15 +30,15 @@ const UpcomingMeets = () => {
           Loading
         </p>
       ) : upcomingmeets && upcomingmeets?.length > 0 ? (
-        <div className="flex flex-col gap-6 ">
+        <div className="flex flex-col gap-4 md:gap-6">
           {upcomingmeets?.map((meet) => (
             <div
               key={meet.id}
-              className="h-16 rounded-lg p-2 flex flex-col justify-center border border-neutral-100 shadow-sm"
+              className="h-auto md:h-16 rounded-lg p-3 md:p-2 flex flex-col justify-center border border-neutral-100 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
               onClick={() => router.push("/meetings")}
             >
-              <div className="font-semibold text-sm">{meet.event.title}</div>
-              <div className="text-xs font-light">
+              <div className="font-semibold text-sm md:text-base">{meet.event.title}</div>
+              <div className="text-xs md:text-sm font-light">
                 with {meet.name} on{" "}
                 {format(new Date(meet.startTime), "MMMM d, yyyy (h:mm a)")}
               </div>
@@ -46,7 +46,7 @@ const UpcomingMeets = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center mt-8 text-sm font-light ">No meetings scheduled</p>
+        <p className="text-center mt-8 text-sm md:text-base font-light">No meetings scheduled</p>
       )}
     </>
   );
