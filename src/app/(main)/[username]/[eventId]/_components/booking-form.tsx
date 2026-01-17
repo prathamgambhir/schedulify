@@ -55,10 +55,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
     watch,
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: {
-      date: undefined,
-      time: undefined,
-    },
+    defaultValues: { date: undefined, time: undefined },
   });
 
   const availabilityDays = availability.map((day) => new Date(day.date));
@@ -74,16 +71,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
     data: fnData,
     loading,
     fn: fnCreateBooking,
-    error,
   } = useFetch(createBooking);
-  const onSubmit = async (data: BookingFormValues) => {
-    if (!data.time || !data.date || !event?.duration) return;
 
+  const onSubmit = async (data: BookingFormValues) => {
+    // console.log(data);
+    if (!data.time || !data.date || !event?.duration) return;
     const startTime = new Date(
       `${format(data.date, "yyyy-MM-dd")}T${data.time}`
     );
     const endTime = new Date(addMinutes(startTime.getTime(), event?.duration));
-
     try {
       await fnCreateBooking({
         eventId: event.id,
@@ -93,37 +89,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
         endTime: endTime.toISOString(),
         additionalInfo: data.additionalInfo,
       });
-
       toast.success("Meeting scheduled successfully");
     } catch (error) {
       console.log("failed to submit slot booking form", error);
     }
+    
+    // console.log(fnData);
   };
 
   if (fnData) {
     return (
-      <div className="col-span-16 flex flex-col items-center justify-center border border-slate-200 bg-slate-50/50 rounded-3xl">
-        <div className="w-full bg-white bordershadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-8 md:p-12 text-center">
-          {/* Animated Success Ring */}
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-200">
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth="3"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-          </div>
-
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+      <div className="w-full flex flex-col items-center justify-center border border-slate-200 bg-slate-50/50 rounded-3xl p-4">
+        <div className="w-full bg-white shadow-lg rounded-3xl p-6 md:p-12 text-center">
+          {/* ... Success UI Content (Keep your existing Success UI here) ... */}
+          <h2 className="text-2xl font-black text-slate-900">
             You're all set!
           </h2>
           <p className="mt-3 text-slate-500 font-medium">
@@ -140,6 +119,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-center gap-2 text-slate-700">
                     <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+
                     <span className="font-mono text-sm truncate max-w-[200px]">
                       {fnData.meetLink.replace("https://", "")}
                     </span>
@@ -162,9 +142,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="col-span-16">
-      <div className="flex gap-2 col-span-16">
-        <div>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
+      <div className="flex flex-col md:flex-row gap-6 items-start">
+        {/* Calendar Section */}
+        <div className="w-full md:w-auto flex justify-center">
           <Controller
             name="date"
             control={control}
@@ -176,92 +157,96 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
                 onSelect={field.onChange}
                 disabled={[{ before: new Date() }]}
                 modifiers={{ available: availabilityDays }}
-                className="rounded-md border border-black/50 shadow-md"
-                classNames={{
-                  day: "m-1",
-                }}
+                className="rounded-md border border-black/20 shadow-md bg-white h-full w-full"
+                classNames={{ day: "m-auto md:m-2" }}
+                showOutsideDays={true}
                 modifiersClassNames={{
-                  available: "bg-blue-400 rounded-lg border border-black",
+                  available: "bg-blue-100 text-blue-700 font-bold rounded-lg",
                 }}
               />
             )}
           />
         </div>
+
+        {/* Time Slots Section */}
         {selectedDate && (
-          <Controller
-            name="time"
-            control={control}
-            render={({ field }) => (
-              <div className="bg-white rounded-md w-full p-5 border border-black/50 shadow-lg">
-                <h3 className="mb-2 font-bold text-xl flex justify-center items-center">
-                  Available Time Slots
-                </h3>
-                {timeSlots.length > 0 ? (
-                  <>
-                    <div className="grid grid-cols-3 gap-2 mt-4">
+          <div className="w-full md:flex-1">
+            <Controller
+              name="time"
+              control={control}
+              render={({ field }) => (
+                <div className="bg-white rounded-md w-full p-5 border max-h-full md:h-93 border-black/20 shadow-sm">
+                  <h3 className="mb-4 font-bold text-lg text-center">
+                    Available Slots for {format(selectedDate, "MMM do")}
+                  </h3>
+                  {timeSlots.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {timeSlots.map((slot) => (
                         <Button
                           key={slot}
                           type="button"
                           variant={field.value === slot ? "default" : "outline"}
+                          className="w-full"
                           onClick={() => field.onChange(slot)}
                         >
                           {slot}
                         </Button>
                       ))}
                     </div>
-                  </>
-                ) : (
-                  <div className="flex justify-center items-center text-sm font-xl font-semibold mt-8">
-                    no available time slots for this day
-                  </div>
-                )}
-              </div>
-            )}
-          />
-        )}
-      </div>
-      <div className="mt-4 ">
-        {selectedTime && (
-          <div className="flex flex-col gap-2 bg-white shadow-md mt-4 p-4 pt-2 justify-center items-center border border-black/75 rounded-md">
-            <h2 className="text-xl font-bold underline p-2 mb-2">
-              Fill this Form
-            </h2>
-            <div className="col-span-3 flex flex-col gap-2 w-full">
-              <div>
-                <Input {...register("name")} placeholder="Enter your name" />
-                {errors.name && (
-                  <p className="text-red-500 text-sm font-semibold">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <Input {...register("email")} placeholder="Enter your email" />
-                {errors.email && (
-                  <p className="text-red-500 text-sm font-semibold">
-                    {errors?.email?.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <Textarea
-                  {...register("additionalInfo")}
-                  placeholder="Enter additional information"
-                />
-                {errors.additionalInfo && (
-                  <p className="text-red-500 text-sm font-semibold">
-                    {errors?.additionalInfo?.message}
-                  </p>
-                )}
-              </div>
-              <Button variant={"default"} disabled={loading} type="submit">
-                {loading ? <p>Booking your slot...</p> : <p>Schedule Event</p>}
-              </Button>
-            </div>
+                  ) : (
+                    <p className="text-center text-slate-500 py-8">
+                      No slots available
+                    </p>
+                  )}
+                </div>
+              )}
+            />
           </div>
         )}
       </div>
+
+      {/* Form Section */}
+      {selectedTime && (
+        <div className="flex flex-col gap-4 bg-white shadow-md p-6 border border-black/20 rounded-md animate-in fade-in slide-in-from-top-4">
+          <h2 className="text-xl font-bold border-b pb-2">
+            Enter Your Details
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <Input {...register("name")} placeholder="Enter your name" />
+              {errors.name && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <Input {...register("email")} placeholder="Enter your email" />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <Textarea
+                {...register("additionalInfo")}
+                placeholder="Any notes for the meeting?"
+              />
+            </div>
+            <Button
+              className="w-full"
+              size="lg"
+              disabled={loading}
+              type="submit"
+            >
+              {loading
+                ? "Booking your slot..."
+                : `Schedule for ${selectedTime}`}
+            </Button>
+          </div>
+        </div>
+      )}
     </form>
   );
 };

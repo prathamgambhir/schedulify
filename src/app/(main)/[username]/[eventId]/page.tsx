@@ -21,22 +21,30 @@ const EventBooinkgPage: React.FC<eventBookingProps> = async ({ params }) => {
   if (!event) {
     notFound();
   }
+
   return (
-    <div className="pb-18">
-      <div className="my-12 mt-18 text-4xl font-bold text-center text-blue-950">
+    <div className="container mx-auto px-4 pb-12">
+      <div className="py-6 md:py-8 text-3xl md:text-4xl font-bold text-center text-blue-950">
         Book Your Slot
       </div>
-      <div className="grid grid-cols-25 gap-2 mx-12">
-        <EventDetails event={event} />
-        <div className="col-span-1">
-          <Separator
-            className="text-black-700 border border-black/60 justify-self-center"
-            orientation="vertical"
-          />
+      
+      <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
+        {/* Left Side: Event Details */}
+        <div className="w-full lg:w-1/3">
+          <EventDetails event={event} />
         </div>
-        <Suspense fallback={<div>Loading booking form...</div>}>
-          <BookingForm event={event} availability={eventAvailability} />
-        </Suspense>
+
+        {/* Separator: Only visible on large screens */}
+        <div className="hidden lg:block h-[500px]">
+          <Separator orientation="vertical" className="border-black/20" />
+        </div>
+
+        {/* Right Side: Booking Form */}
+        <div className="w-full lg:flex-1">
+          <Suspense fallback={<div>Loading booking form...</div>}>
+            <BookingForm event={event} availability={eventAvailability} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
