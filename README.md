@@ -34,7 +34,7 @@ A modern, full-featured scheduling and booking application built with the latest
 
 **Open in your browser**
 
-Navigate to [http://localhost:3000](http://localhost:3000)
+Navigate to [http://scheduulify.vercel.app/](http://scheduulify.vercel.app/)
 
 ---
 
@@ -159,7 +159,7 @@ npm run dev
 
 5. **Open your browser**
 
-Navigate to [http://localhost:3000](http://localhost:3000)
+Navigate to [http://scheduulify.vercel.app/](http://scheduulify.vercel.app/)
 
 ### Environment Variables
 
