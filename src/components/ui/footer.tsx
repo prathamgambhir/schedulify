@@ -78,15 +78,29 @@ const Footer = () => {
                 Project by Pratham Gambhir
               </p>
               <div className="flex flex-col gap-2">
-                <button className="w-full py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all active:scale-95">
-                  View on GitHub
-                </button>
-                <button className="w-full py-2 bg-slate-50 text-black text-sm border border-black/60 font-medium rounded-xl hover:bg-slate-100 transition-all active:scale-95">
-                  Connect on X
-                </button>
-                <button className="w-full py-2 bg-slate-50 text-black text-sm border border-black/60 font-medium rounded-xl hover:bg-slate-100 transition-all active:scale-95">
-                  Connect on LinkedIn
-                </button>
+                <Link
+                  href={"https://github.com/prathamgambhir/schedulify"}
+                  target="_blank"
+                >
+                  <button className="w-full py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all active:scale-95">
+                    View on GitHub
+                  </button>
+                </Link>
+                <Link href={"https://x.com/_PrathamGambhir"} target="_blank">
+                  <button className="w-full py-2 bg-slate-50 text-black text-sm border border-black/60 font-medium rounded-xl hover:bg-slate-100 transition-all active:scale-95">
+                    Connect on X
+                  </button>
+                </Link>
+                <Link
+                  href={
+                    "https://www.linkedin.com/in/pratham-gambhir-a52206395/"
+                  }
+                  target="_blank"
+                >
+                  <button className="w-full py-2 bg-slate-50 text-black text-sm border border-black/60 font-medium rounded-xl hover:bg-slate-100 transition-all active:scale-95">
+                    Connect on LinkedIn
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
