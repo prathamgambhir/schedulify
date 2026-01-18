@@ -36,7 +36,7 @@ const Dashboard: React.FC = async () => {
                 Upcoming Meetings
               </h1>
             </CardHeader>
-            <CardContent className="overflow-scroll max-h-64">
+            <CardContent className="overflow-scroll max-h-42">
               <UpcomingMeets />
             </CardContent>
           </Card>

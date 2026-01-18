@@ -12,13 +12,14 @@ const UpcomingMeets = () => {
   const {
     fn: fnLatestMeetUpdates,
     loading,
+    error,
     data: upcomingmeets,
   } = useFetch(getLatestMeetUpdates);
 
   useEffect(() => {
     (async () => await fnLatestMeetUpdates())();
     // console.log("doneee useeeeee effectttttt");
-  });
+  }, []);
 
   //   console.log(upcomingmeets);
   return (

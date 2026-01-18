@@ -71,7 +71,6 @@ export const signin = async (formdata: FormData) => {
       redirectTo: "/dashboard",
     });
     revalidatePath("/dashboard");
-    return { success: true };
   } catch (error) {
     if (error instanceof Error) {
       if (error.message.includes("CredentialsSignin")) {

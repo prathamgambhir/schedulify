@@ -41,12 +41,13 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
   }, [defaultUsername, setValue]);
 
   const {
+    data,
     error,
     fn: fnUpdateUsername,
     loading,
   } = useFetch(updateUsername);
 
-  const { update } = useSession();
+  const { data:session, update } = useSession();
   const router = useRouter();
   const submitForm = async (sendData: { username: string }) => {
     const res = await fnUpdateUsername(sendData.username);
@@ -73,7 +74,6 @@ const UniqueUrlForm: React.FC<uniqueUrlProp> = ({ defaultUsername }) => {
       setTimeout(() => setIsCopied(false), 3000);
     } catch (error) {
       throw new Error("unable to copy url");
-      // console.error(error);
     }
   };
 

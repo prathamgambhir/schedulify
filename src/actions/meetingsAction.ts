@@ -77,8 +77,8 @@ export const cancelMeeting = async (meetingId: string) => {
 
   oAuth2Client.setCredentials({ refresh_token: refreshToken });
 
-  // const tokenResponse = await oAuth2Client.getAccessToken();
-  // const accessToken = tokenResponse.token ?? tokenResponse;
+  const tokenResponse = await oAuth2Client.getAccessToken();
+  const accessToken = tokenResponse.token ?? tokenResponse;
 
   const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 

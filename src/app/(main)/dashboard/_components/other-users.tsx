@@ -20,7 +20,7 @@ const OtherUser: React.FC = () => {
 
   useEffect(() => {
     (async () => await fnGetOtherUsers())();
-  });
+  }, []);
 
   return (
     <>
@@ -39,7 +39,7 @@ const OtherUser: React.FC = () => {
               <div className="text-sm font-semibold flex gap-3 items-center" onClick={() => router.push(`/${user.username}`)}>
                 <Avatar className="h-10 w-10 md:h-8 md:w-8">
                   <AvatarImage
-                    src={user?.image || ""}
+                    src={user?.image!}
                     className="bg-black text-white cursor-pointer"
                   />
                   <AvatarFallback className="text-xs">
@@ -103,7 +103,7 @@ const SearchedUsers: React.FC<searchedUser> = ({ input }) => {
               <div className="text-sm font-semibold flex gap-3 items-center" onClick={() => router.push(`/${user.username}`)}>
                 <Avatar className="h-10 w-10 md:h-8 md:w-8">
                   <AvatarImage
-                    src={user?.image || ""}
+                    src={user?.image!}
                     className="bg-black text-white cursor-pointer"
                   />
                   <AvatarFallback className="text-xs">

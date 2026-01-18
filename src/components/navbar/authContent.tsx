@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import React from "react";
-import { LogOutIcon, User2Icon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,8 +32,8 @@ const AuthContent = () => {
           </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem className="font-semibold h-8 px-6">
-          <Link href={`/${session.data.user.username}`} className="flex items-center gap-2"><User2Icon className="size-4 text-black"/> Profile</Link>
+        <DropdownMenuItem className="font-semibold h-8 pl-6">
+          Account
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
