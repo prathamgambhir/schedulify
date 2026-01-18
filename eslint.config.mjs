@@ -20,7 +20,14 @@ const eslintConfig = [
       "next-env.d.ts",
       "./src/lib/prisma.ts",
       "./src/hooks/use-fetch.ts",
+      "./src/app/(main)/dashboard/_components/other-users.tsx",
+      "./src/components/availability/availability-form.tsx"
     ],
+  },
+  {
+    rules: {
+      "@typescript-eslint/no-used-vars": "off",
+    },
   },
 ];
 

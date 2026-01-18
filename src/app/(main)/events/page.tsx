@@ -8,7 +8,7 @@ const Events = async () => {
   if (userEvents.length === 0) {
     return (
       <p className="text-lg md:text-xl lg:text-2xl font-semibold opacity-80 text-center mt-16">
-        You haven't created any events yet
+        You haven&apos;t created any events yet
       </p>
     );
   }

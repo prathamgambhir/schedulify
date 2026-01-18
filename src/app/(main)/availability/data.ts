@@ -1,5 +1,3 @@
-import {z} from "zod"
-
 export const timeSlots = [
   "00:00",
   "00:30",

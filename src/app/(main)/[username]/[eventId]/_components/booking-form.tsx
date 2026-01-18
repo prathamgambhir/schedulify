@@ -103,7 +103,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ event, availability }) => {
         <div className="w-full bg-white shadow-lg rounded-3xl p-6 md:p-12 text-center">
           {/* ... Success UI Content (Keep your existing Success UI here) ... */}
           <h2 className="text-2xl font-black text-slate-900">
-            You're all set!
+            You&apos;re all set!
           </h2>
           <p className="mt-3 text-slate-500 font-medium">
             Your booking is confirmed and added to your calendar.

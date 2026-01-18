@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { EventFormType } from "@/components/eventForm";
+import { EventFormType } from "@/components/event/eventForm";
 import prisma from "@/lib/prisma";
 import { eventSchema } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";

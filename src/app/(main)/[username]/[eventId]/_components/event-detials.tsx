@@ -74,7 +74,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event }) => {
               {event?.duration} mins
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-sm font-semibold">
-              <img
+              <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg"
                 alt="Meet"
                 className="w-4 h-4"

@@ -61,6 +61,7 @@ const EventCard: React.FC<EventCard> = ({
       setTimeout(() => setIsCopied(false), 3000);
     } catch (error) {
       throw new Error("unable to copy url");
+      // console.error(error);
     }
   };
 

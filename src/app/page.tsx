@@ -3,7 +3,6 @@
 import React from "react";
 import Hero from "@/sections/hero";
 import Features from "@/sections/features";
-import Workflow from "@/sections/worlkflow";
 import FinalCta from "@/sections/final-cta";
 import HowItWorks from "@/sections/how-it-works";
 
